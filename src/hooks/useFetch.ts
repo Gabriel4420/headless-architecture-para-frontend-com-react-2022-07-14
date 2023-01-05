@@ -5,7 +5,7 @@ export const useFetch = <T>(url: string) => {
   const [error, setError] = useState<any>();
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
         const res = await fetch(url);
         const data = await res.json();
@@ -13,8 +13,7 @@ export const useFetch = <T>(url: string) => {
       } catch (err) {
         setError(err);
       }
-    };
-    fetchData();
+    })();
   }, [url]);
 
   return { response, error };

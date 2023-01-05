@@ -1,36 +1,34 @@
-import { useState, useEffect } from "react";
-import { ISmartphone } from "../components/SmartphoneItem";
-import { useFetch } from "./useFetch";
+import { useState } from 'react'
+import { useFetch } from '../hooks'
+import { ISmartphone } from '../interfaces'
 
 function paramsToString(storage?: string, manufacturer?: string) {
-  let params = {};
+  let params = {}
 
-  if (storage) {
-    params = { ...params, storage };
-  }
-
-  if (manufacturer) {
-    params = { ...params, manufacturer };
-  }
-
-  return params;
+  return storage
+    ? (params = { ...params, storage })
+    : manufacturer
+    ? (params = { ...params, manufacturer })
+    : params
 }
 
 export const useSmartphones = () => {
-  const [storage, setStorage] = useState<string>();
-  const [manufacturer, setManufacturer] = useState<string>();
+  //
 
-  const paramsString = new URLSearchParams(
-    paramsToString(storage, manufacturer)
-  );
+  const [storage, setStorage] = useState<string>()
+  const [manufacturer, setManufacturer] = useState<string>()
+
+  const storageParam = new URLSearchParams(
+    paramsToString(storage, manufacturer),
+  )
 
   const { response } = useFetch<ISmartphone[]>(
-    `http://localhost:3333/smartphones?${paramsString}`
-  );
+    `http://localhost:3333/smartphones?${storageParam}`,
+  )
 
   return {
     smartphones: response,
     setManufacturer,
     setStorage,
-  };
-};
+  }
+}

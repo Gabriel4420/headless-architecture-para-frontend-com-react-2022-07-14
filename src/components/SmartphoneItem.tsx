@@ -1,24 +1,18 @@
-export interface ISmartphone {
-  id: string;
-  name: string;
-  price: string;
-  manufacturer: string;
-  image: string;
-  memory: string;
-  storage: string;
-}
+import { ISmartphone } from "interfaces";
+
 
 export const SmartphoneItem = ({ data }: { data: ISmartphone }) => {
   const { image, manufacturer, memory, name, price, storage } = data;
 
   return (
-    <div className="shadow-2xl rounded w-fit flex flex-col items-center p-5">
-      <p>{name}</p>
-      <p>Price: {price}</p>
-      <p>Manufacturer: {manufacturer}</p>
-      <img src={image} alt="Apple Iphone" className="w-52 h-full" />
-      <p>Memory: {memory}</p>
-      <p>Storage: {storage}</p>
+    <div className="shadow-2xl h-500 rounded  flex flex-col items-center p-5">
+      <p className="pb-2">{name}</p>
+      <p className="pb-2">R$ {price}</p>
+      <p className="pb-2"><strong>{manufacturer}</strong></p>
+      {manufacturer === "Samsung" ? <img src={image} alt="Samsung phone" className="w-52 h-80  p-2 object-fill pb-2" /> : <img src={image} alt="Apple Iphone" className="w-auto h-80 pb-2" />}
+
+      <p className="pb-2">Memory: {memory}</p>
+      <p className="pb-2">Storage: {storage}</p>
 
       <a
         href="#"
